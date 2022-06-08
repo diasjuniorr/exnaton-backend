@@ -68,3 +68,5 @@ function reduceMeasurements(a: Measurement, b: Measurement) {
     '0100021D00FF': a['0100021D00FF'] + b['0100021D00FF'],
   };
 }
+
+export { router };
