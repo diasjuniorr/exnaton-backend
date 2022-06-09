@@ -6,6 +6,6 @@ const router = Router();
 
 const smartMeterController = new SmartMeterController();
 
-router.get('/api/v1/meterdata/measurement', smartMeterController.getMeasurementsByDay);
+router.get('/api/v1/meterdata/measurement', smartMeterController.getMeasurementsByDay.bind(smartMeterController));
 
 export { router };
