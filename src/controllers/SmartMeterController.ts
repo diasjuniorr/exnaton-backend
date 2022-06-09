@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-
 import importedData from '../data.json';
 
 interface Measurement {
@@ -18,6 +17,7 @@ interface Group {
 
 class SmartMeterController {
   async getMeasurementsByDay(req: Request, res: Response) {
+    console.log("retornando: ")
     const data = importedData as Measurement[];
     const measurementsByDay = this._groupMeasurementsByDay(data);
 
@@ -27,17 +27,16 @@ class SmartMeterController {
         date: measurement.date,
         measurement: measurements['measurement'],
         muid: measurements['tags']['muid'],
-        AETotalImport: measurements['0100011D00FF'].toFixed(3),
-        AETotalExport: measurements['0100021D00FF'].toFixed(3),
+        aETotalImport: measurements['0100011D00FF'].toFixed(4),
+        aETotalExport: measurements['0100021D00FF'].toFixed(3),
         measurements: measurement.measurements.map((item) => ({
           '0100011D00FF': item['0100011D00FF'],
           '0100021D00FF': item['0100021D00FF'],
-          timestamp: item.timestamp,
+          time: item.timestamp.split("T")[1].split(".")[0],
         })),
       };
     });
-
-    res.json(formatedData);
+    res.json("formatedData");
   }
 
   _groupMeasurementsByDay(data: Measurement[]) {

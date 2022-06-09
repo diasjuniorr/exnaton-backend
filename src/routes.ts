@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import cors from 'cors';
 import { SmartMeterController } from './controllers/SmartMeterController';
 
 const router = Router();
