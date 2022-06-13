@@ -17,5 +17,5 @@ export const db = new DataSource({
   "extra": {
     "ssl": {
       "rejectUnauthorized": false
-    }
+    }}
 });
