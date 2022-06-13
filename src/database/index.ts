@@ -14,4 +14,8 @@ export const db = new DataSource({
   synchronize: false,
   entities: ['dist/**/**.entity{.ts,.js}'],
   migrations: ['dist/database/migrations/*{.ts,.js}'],
+  "extra": {
+    "ssl": {
+      "rejectUnauthorized": false
+    }
 });
