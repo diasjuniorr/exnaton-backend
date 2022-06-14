@@ -47,7 +47,7 @@ const getMeasurementsByDay = async (muid: string, start: string, stop: string) =
     const data = await db
       .getRepository(Measurement)
       .createQueryBuilder('measurement')
-      .where('measurement.muid = :muid measurement.timestamp between :start and :stop', { muid, start, stop })
+      .where('measurement.muid = :muid and measurement.timestamp between :start and :stop', { muid, start, stop })
       .getMany();
 
     const measurementsByDay = groupMeasurementsByDay(data);
