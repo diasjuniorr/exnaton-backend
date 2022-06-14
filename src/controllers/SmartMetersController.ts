@@ -1,6 +1,4 @@
 import { Request, Response } from 'express';
-import { db } from '../database';
-import { SmartMeter } from '../models/SmartMeter.entity';
 import SmartMetersService from '../services/SmartMetersService';
 
 const createSmartMeter = async (req: Request, res: Response) => {

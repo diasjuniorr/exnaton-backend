@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request } from 'express';
 import { v4 as uuid } from 'uuid';
 import { db } from '../database';
 import { Measurement } from '../models/Measurement.entity';
