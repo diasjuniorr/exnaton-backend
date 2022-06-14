@@ -46,7 +46,7 @@ class MeasurementsController {
       .createQueryBuilder('measurement')
       .where('measurement.timestamp between :start and :stop', { start, stop })
       .getMany();
-    // const data = await db.getRepository(Measurement).find();
+      
     const measurementsByDay = this._groupMeasurementsByDay(data);
 
     const formatedData = measurementsByDay.map((measurement) => {
