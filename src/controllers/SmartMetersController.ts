@@ -1,20 +1,29 @@
 import { Request, Response } from 'express';
 import { db } from '../database';
 import { SmartMeter } from '../models/SmartMeter.entity';
+import SmartMetersService from '../services/SmartMetersService';
 
-class SmartMeterscontroler {
-  async createSmartMeter(req: Request, res: Response) {
-    const created = await db.getRepository(SmartMeter).create();
-    const result = await db.getRepository(SmartMeter).save(created);
+const createSmartMeter = async (req: Request, res: Response) => {
+  try {
+    const result = await SmartMetersService.createSmartMeter();
 
     res.json(result);
-  }
+  } catch (e) {
+    console.log(e);
 
-  async getSmartMeters(req: Request, res: Response) {
-    const smartMeters = await db.getRepository(SmartMeter).find();
+    res.status(500).send();
+  }
+};
+
+const getSmartMeters = async (req: Request, res: Response) => {
+  try {
+    const smartMeters = await SmartMetersService.getSmartMeters();
 
     res.json(smartMeters);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send();
   }
-}
+};
 
-export { SmartMeterscontroler };
+export default { createSmartMeter, getSmartMeters };
