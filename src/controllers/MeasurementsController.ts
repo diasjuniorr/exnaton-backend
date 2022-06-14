@@ -3,7 +3,7 @@ import MeasurementsService from '../services/MeasurementsService';
 
 const insertMeasurements = async (req: Request, res: Response) => {
   try {
-    const results = MeasurementsService.insertMeasurements(req.body);
+    const results = await MeasurementsService.insertMeasurements(req.body);
 
     res.json(results);
   } catch (e) {
