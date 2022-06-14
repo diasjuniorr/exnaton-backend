@@ -1,102 +1,39 @@
 import { Request, Response } from 'express';
-import { v4 as uuid } from 'uuid';
-import { db } from '../database';
-import { Measurement } from '../models/Measurement.entity';
+import MeasurementsService from '../services/MeasurementsService';
 
-interface PostMeasurement {
-  measurement: 'string';
-  '0100011D00FF': number;
-  '0100021D00FF': number;
-  tags: {
-    muid: string;
-  };
-  timestamp: string;
-}
-
-interface Group {
-  [key: string]: Measurement[];
-}
-
-class MeasurementsController {
-  async insertMeasurements(req: Request, res: Response) {
-    const results = await db
-      .createQueryBuilder()
-      .insert()
-      .into('measurements')
-      .values(
-        req.body.map((item: PostMeasurement) => ({
-          id: uuid(),
-          muid: item.tags.muid,
-          measurement: item.measurement,
-          '0100011D00FF': item['0100011D00FF'] ? item['0100011D00FF'] : 0,
-          '0100021D00FF': item['0100021D00FF'] ? item['0100021D00FF'] : 0,
-          timestamp: item.timestamp,
-        })),
-      )
-      .execute();
+const insertMeasurements = async (req: Request, res: Response) => {
+  try {
+    const results = MeasurementsService.insertMeasurements(req.body);
 
     res.json(results);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send();
+  }
+};
+
+const getMeasurementsByDay = async (req: Request, res: Response) => {
+  const { muid, start, stop } = req.query;
+  if (!muid) {
+    res.status(400).json({ error: 'Missing muid parameter' });
   }
 
-  async getMeasurementsByDay(req: Request, res: Response) {
-    const { start, stop } = req.query;
-
-    const data = await db
-      .getRepository(Measurement)
-      .createQueryBuilder('measurement')
-      .where('measurement.timestamp between :start and :stop', { start, stop })
-      .getMany();
-      
-    const measurementsByDay = this._groupMeasurementsByDay(data);
-
-    const formatedData = measurementsByDay.map((measurement) => {
-      const measurements = measurement.measurements.reduce(this._reduceMeasurements);
-      return {
-        date: measurement.date,
-        measurement: measurements['measurement'],
-        muid: measurements['muid'],
-        aETotalImport: +measurements['0100011D00FF'].toFixed(3),
-        aETotalExport: +measurements['0100021D00FF'].toFixed(3),
-        measurements: measurement.measurements
-          .map((item) => ({
-            '0100011D00FF': item['0100011D00FF'],
-            '0100021D00FF': item['0100021D00FF'],
-            time: item.timestamp.toISOString().split('T')[1].split('.')[0],
-          }))
-          .reverse(),
-      };
-    });
-
-    res.json(formatedData);
+  if (!start) {
+    res.status(400).json({ error: 'Missing start parameter' });
   }
 
-  _groupMeasurementsByDay(data: Measurement[]) {
-    const groups = data.reduce((groups: Group, measurement) => {
-      const date = measurement.timestamp.toISOString().split('T')[0];
-      if (!groups[date]) {
-        groups[date] = [];
-      }
-      groups[date].push(measurement);
-      return groups;
-    }, {});
-
-    const groupArrays = Object.keys(groups).map((date) => {
-      return {
-        date,
-        measurements: groups[date],
-      };
-    });
-
-    return groupArrays.reverse();
+  if (!stop) {
+    res.status(400).json({ error: 'Missing stop parameter' });
   }
 
-  _reduceMeasurements(a: Measurement, b: Measurement) {
-    return {
-      ...a,
-      '0100011D00FF': a['0100011D00FF'] + b['0100011D00FF'],
-      '0100021D00FF': a['0100021D00FF'] + b['0100021D00FF'],
-    };
-  }
-}
+  try {
+    const measurements = await MeasurementsService.getMeasurementsByDay(muid as string, start as string, stop as string);
 
-export { MeasurementsController };
+    res.json(measurements);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send();
+  }
+};
+
+export default { insertMeasurements, getMeasurementsByDay };
