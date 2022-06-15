@@ -37,8 +37,7 @@ const insertMeasurements = async (req: Request) => {
 
     return results;
   } catch (e) {
-    console.log(e);
-    throw Error('Error inserting measurements');
+    throw Error('Error inserting measurements: ' + e);
   }
 };
 
@@ -72,8 +71,7 @@ const getMeasurementsByDay = async (muid: string, start: string, stop: string) =
 
     return formatedData;
   } catch (e) {
-    console.log(e);
-    throw Error('Error getting measurements');
+    throw Error('Error getting measurements: ' + e);
   }
 };
 

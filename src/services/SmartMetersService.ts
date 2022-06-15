@@ -8,8 +8,7 @@ const createSmartMeter = async () => {
 
     return result;
   } catch (e) {
-    console.log(e);
-    throw Error('Error creating smart meter');
+    throw Error('Error creating smart meter: ' + e);
   }
 };
 
@@ -19,8 +18,7 @@ const getSmartMeters = async () => {
 
     return smartMeters;
   } catch (e) {
-    console.log(e);
-    throw Error('Error getting smart meters');
+    throw Error('Error getting smart meters: ' + e);
   }
 };
 
