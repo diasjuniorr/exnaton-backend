@@ -26,12 +26,12 @@ const getMeasurementsByDay = async (req: Request, res: Response) => {
     res.status(400).json({ error: 'Invalid start parameter' });
   }
 
-  if (isDate(stop as string)) {
-    res.status(400).json({ error: 'Invalid stop parameter' });
-  }
-
   if (!stop) {
     res.status(400).json({ error: 'Missing stop parameter' });
+  }
+
+  if (!isDate(stop as string)) {
+    res.status(400).json({ error: 'Invalid stop parameter' });
   }
 
   try {
@@ -45,6 +45,9 @@ const getMeasurementsByDay = async (req: Request, res: Response) => {
 };
 
 const isDate = (date: string) => {
+  console.log('debug: ', date);
+  console.log(Date.parse(date));
+  console.log('debug -------------------------------');
   return !isNaN(Date.parse(date));
 };
 
