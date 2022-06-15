@@ -5,11 +5,11 @@ const createSmartMeter = async (req: Request, res: Response) => {
   try {
     const result = await SmartMetersService.createSmartMeter();
 
-    res.json(result);
+    return res.json(result);
   } catch (e) {
     console.log(e);
 
-    res.status(500).send();
+    return res.status(500).send();
   }
 };
 
@@ -17,10 +17,10 @@ const getSmartMeters = async (req: Request, res: Response) => {
   try {
     const smartMeters = await SmartMetersService.getSmartMeters();
 
-    res.json(smartMeters);
+    return res.json(smartMeters);
   } catch (e) {
     console.log(e);
-    res.status(500).send();
+    return res.status(500).send();
   }
 };
 
