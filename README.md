@@ -69,16 +69,16 @@ yarn typeorm migration:run -d dist/database/index.js
 
 As of now, the backend only supports the following endpoints:
 
-    - POST /api/v1/smartmeter - Create a new smart meter
+- POST /api/v1/smartmeter - Create a new smart meter
 
 ```curl
 curl --request POST \
   --url https://exnaton-backend.herokuapp.com/api/v1/smartmeters
 ```
 
-    - GET /api/v1/smartmeter - Get all smart meters
+- GET /api/v1/smartmeter - Get all smart meters
 
-    - POST /api/v1/meterdata/measurement - Insert and array of measurements
+- POST /api/v1/meterdata/measurement - Insert and array of measurements
 
 ```curl
 curl --request POST \
@@ -97,4 +97,4 @@ curl --request POST \
 	]'
 ```
 
-    - GET /api/v1/meterdata/measurement - Get all measurements for a smart meter
+- GET /api/v1/meterdata/measurement - Get all measurements for a smart meter
