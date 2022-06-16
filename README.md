@@ -35,12 +35,6 @@ To start the database in a Docker container:
 docker run --name db-name -e POSTGRES_PASSWORD=password -e POSTGRES_USER=user -p 5432:5432 -d postgres
 ```
 
-You will need to run the migrations manually. You can do so by running the following command:
-
-```
-yarn typeorm migration:run -d dist/database/index.js
-```
-
 ### Starting the server and the database with Docker-compose
 
 Just start the Docker-compose file:
