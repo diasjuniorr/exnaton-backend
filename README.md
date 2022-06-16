@@ -56,7 +56,7 @@ Here are a couple commands to help you with the database:
 - To create a new migration file:
 
 ```
-yarn typeorm migration:create src/database/migrations/CreateMeasurementTable
+yarn typeorm migration:create src/database/migrations/NameOfTheMigration
 ```
 
 - To run the migrations:
