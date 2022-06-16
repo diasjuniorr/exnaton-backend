@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
-import dayjs from 'dayjs';
 import MeasurementsService from '../services/MeasurementsService';
+import dayjs from 'dayjs';
+var customParseFormat = require('dayjs/plugin/customParseFormat');
+dayjs.extend(customParseFormat);
 
 const insertMeasurements = async (req: Request, res: Response) => {
   try {
