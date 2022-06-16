@@ -17,14 +17,14 @@ interface Group {
   [key: string]: Measurement[];
 }
 
-const insertMeasurements = async (req: Request) => {
+const insertMeasurements = async (measurements: PostMeasurement[]) => {
   try {
     const results = await db
       .createQueryBuilder()
       .insert()
       .into('measurements')
       .values(
-        req.body.map((item: PostMeasurement) => ({
+        measurements.map((item: PostMeasurement) => ({
           id: uuid(),
           muid: item.tags.muid,
           measurement: item.measurement,
