@@ -1,0 +1,33 @@
+version: '3.8'
+
+services: 
+  node_backend: 
+    container_name: node_backend
+    image: exnaton-node-backend
+    build:
+      context: .
+    ports:
+      - '3000:3000'
+    environment:
+    - PORT=3000
+    - DB_HOST=db
+    - DB_NAME=exnaton-db
+    - DB_USERNAME=postgress
+    - DB_PASSWORD=supersecret
+    - DB_PORT=5432
+    depends_on: 
+      - db
+  db:
+    container_name: db
+    image: 'postgres:12'
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgress
+      - POSTGRES_PASSWORD=supersecret
+      - POSTGRES_DB=exnaton-db
+    volumes:
+      - pgdata1:/var/lib/postgresql/data
+
+volumes:
+  pgdata1: {}
