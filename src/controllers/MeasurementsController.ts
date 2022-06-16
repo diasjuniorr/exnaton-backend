@@ -23,15 +23,15 @@ const getMeasurementsByDay = async (req: Request, res: Response) => {
     return res.status(400).json({ error: 'Missing start parameter' });
   }
 
-  if (dayjs(start as string).isValid()) {
-    return res.status(400).json({ error: 'Invalid start parameter' });
+  if (dayjs(start as string, 'YYYY-MM-DD', true).isValid()) {
+    return res.status(400).json({ error: 'Start parameter should be in YYYY-MM-DD format' });
   }
 
   if (!stop) {
-    return res.status(400).json({ error: 'Missing stop parameter' });
+    return res.status(400).json({ error: 'Stop parameter should be in YYYY-MM-DD format' });
   }
 
-  if (dayjs(stop as string).isValid()) {
+  if (dayjs(stop as string, 'YYYY-MM-DD', true).isValid()) {
     return res.status(400).json({ error: 'Invalid stop parameter' });
   }
 
