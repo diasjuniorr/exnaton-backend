@@ -73,7 +73,7 @@ As of now, the backend only supports the following endpoints:
 
 ```curl
 curl --request POST \
-  --url https://exnaton-backend.herokuapp.com/api/v1/smartmeters
+  --url http://localhost:3000/api/v1/smartmeters
 ```
 
 - GET /api/v1/smartmeter - Get all smart meters
@@ -82,7 +82,7 @@ curl --request POST \
 
 ```curl
 curl --request POST \
-  --url https://exnaton-backend.herokuapp.com/api/v1/meterdata/measurement \
+  --url http://localhost:3000/api/v1/meterdata/measurement \
   --header 'Content-Type: application/json' \
   --data '[
 		{
