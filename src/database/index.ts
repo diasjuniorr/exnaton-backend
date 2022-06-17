@@ -14,7 +14,7 @@ export const db = new DataSource({
   synchronize: false,
   entities: ['dist/**/**.entity{.ts,.js}'],
   migrations: ['dist/database/migrations/*{.ts,.js}'],
-  migrationsRun: true,
+  // migrationsRun: true,
   extra: {
     ssl: {
       rejectUnauthorized: false,
