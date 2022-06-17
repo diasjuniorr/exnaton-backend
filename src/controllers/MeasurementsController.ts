@@ -1,8 +1,20 @@
 import { Request, Response } from 'express';
-import dayjs from 'dayjs';
 import MeasurementsService from '../services/MeasurementsService';
+import dayjs from 'dayjs';
+const customParseFormat = require('dayjs/plugin/customParseFormat');
+dayjs.extend(customParseFormat);
 
-const insertMeasurements = async (req: Request, res: Response) => {
+interface PostMeasurement {
+  measurement: 'string';
+  '0100011D00FF': number;
+  '0100021D00FF': number;
+  tags: {
+    muid: string;
+  };
+  timestamp: string;
+}
+
+const insertMeasurements = async (req: Request<PostMeasurement[]>, res: Response) => {
   try {
     const results = await MeasurementsService.insertMeasurements(req.body);
 
@@ -23,7 +35,7 @@ const getMeasurementsByDay = async (req: Request, res: Response) => {
     return res.status(400).json({ error: 'Missing start parameter' });
   }
 
-  if (!dayjs(start as string).isValid()) {
+  if (!dayjs(start as string, 'YYYY-MM-DD', true).isValid()) {
     return res.status(400).json({ error: 'Start parameter should be in YYYY-MM-DD format' });
   }
 
@@ -31,7 +43,7 @@ const getMeasurementsByDay = async (req: Request, res: Response) => {
     return res.status(400).json({ error: 'Stop parameter should be in YYYY-MM-DD format' });
   }
 
-  if (!dayjs(stop as string).isValid()) {
+  if (!dayjs(stop as string, 'YYYY-MM-DD', true).isValid()) {
     return res.status(400).json({ error: 'Invalid stop parameter' });
   }
 
