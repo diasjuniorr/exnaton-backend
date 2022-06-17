@@ -91,4 +91,4 @@ curl --request POST \
 	]'
 ```
 
-- GET /api/v1/meterdata/measurement - Get all measurements for a smart meter
+- GET /api/v1/meterdata/measurement?muid={smartMeterID}&start={yyyy-mm-dd}&stop={yyyy-mm-dd} - Get all measurements for a smart meter
