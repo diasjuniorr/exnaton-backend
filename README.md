@@ -3,15 +3,14 @@
 ## Table of Contents
 
 - [About](#about)
-- [Getting Started](#getting_started)
+- [Installing](#installing)
 - [Usage](#usage)
-- [Contributing](../CONTRIBUTING.md)
 
 ## About <a name = "about"></a>
 
 This is a REST API for the [exnaton](https://exnaton.com) backend. It provides endpoints for creating and retriveing Smart Meters and their readings. It performs data transformation on the raw readings so the frontend can display them in a more readable format. It groups the readings by day and provides a summary of the readings for each day. It was written in Node.js and uses the [Express](https://expressjs.com) framework and Postgres for the database. To interact with the dabase it uses Typeorm for the ORM.
 
-### Installing
+### Installing <a name = "installing">
 
 Clone the project into your machine and install the dependencies with your preferred tool.
 
